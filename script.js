@@ -10,18 +10,23 @@ frmRoman.addEventListener('submit', submitForm);
 
 function submitForm(event) {
     event.preventDefault();
-    let romanNum = convertToRoman( inputNum.value );
-    //result.innerHTML = `<h1>${romanNum}</h1>`;    
-    result.textContent = romanNum;    
+
+    if( inputNum.value <= 3999 ) {
+        let romanNum = convertToRoman( inputNum.value );
+        //result.innerHTML = `<h1>${romanNum}</h1>`;    
+        result.textContent = `Roman Numerals: ${romanNum}`;    
+    } else {
+        result.textContent = `Sorry, ${ inputNum.value } is out of range!`;    
+    }
+    
 }
 
 
 /*
   Loop through conv table (array)
-    if input num <= dec number
-       as long as input num <= dec
+    as long as inputNum >= dec number       
        save the Roman num
-       input num minus dec number
+       subtract dec number from inputNum 
   */
 function convertToRoman(num) {
     let romanNum = '';
@@ -42,16 +47,12 @@ function convertToRoman(num) {
         { rom: 'I', dec: 1 },
     ];
 
-    for (const conv of convTable) {
+    for (const conv of convTable) {        
 
-        if (num >= conv.dec) {
-
-            while (num >= conv.dec) {
-                romanNum = romanNum + conv.rom; //XLII
-                num = num - conv.dec;
-            }  // while
-
-        }  //if
+        while (num >= conv.dec) {
+            romanNum += conv.rom; 
+            num -= conv.dec;
+        }  // while loop        
 
     }  // for loop
 
